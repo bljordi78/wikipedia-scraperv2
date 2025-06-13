@@ -7,11 +7,14 @@ import re
 
 
 def get_first_paragraph(wikipedia_url):
+        """Funtion that will scrape the first paragraph of the wikipedia url passed as argument"""
+        
         
         try:
-
+            """Unfortunately some urls return an error code, therefore use a try/except to skip those ones"""
+            
+            # open a request for the url and parse the code
             r = requests.get(wikipedia_url)
-            #response.raise_for_status()
             soup = BeautifulSoup(r.text, "html.parser")
 
             for p in soup.find_all("p"):
@@ -21,13 +24,14 @@ def get_first_paragraph(wikipedia_url):
 
             first_paragraph = first_paragraph.text
             
+            # cleaning the ouptut with some detected patterns
             pattern = r'\((.*?)ⓘ\)|\[.*?\]'
             first_paragraph = re.sub(pattern, '', first_paragraph)
 
             pattern = r'(\xa0)'
             first_paragraph = re.sub(pattern, ' ', first_paragraph)
 
-        
+            # returning the paragraph or void if error
             return first_paragraph
         
         except Exception:
@@ -35,6 +39,12 @@ def get_first_paragraph(wikipedia_url):
 
 
 def get_leaders(root_url):
+    """ Funtion that uses the root url to:
+        - create requests to manage cookies, retrieve countries and get leaders urls
+        - loop through all countries - leaders url to create a dataframe
+        - call first paragraph function to add these to the dataframe
+    """
+
 
     cookies = requests.get(f"{root_url}/cookie")
     countries = requests.get(f"{root_url}/countries", cookies=cookies.cookies).json()
@@ -59,8 +69,13 @@ def get_leaders(root_url):
 
     return leaders_per_country
 
+# Set root url for the requests
 root_url = 'https://country-leaders.onrender.com'
+
+# call the get leaders function
 leaders_per_country = get_leaders(root_url)
+
+# save the output to json and csv
 leaders_per_country.to_csv('leaders_data.csv', index = False)
 leaders_per_country.to_json('leaders_data.json', orient='index')
 
