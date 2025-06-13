@@ -21,8 +21,8 @@ This project follows the guidelines from [Wikipedia Scraper](https://github.com/
 ## Usage
 On Git Bash or other terminal:
 
-git clone https://github.com/Reigen-cs/challenge-card-game-becode.git
+git clone git@github.com:bljordi78/wikipedia-scraperv2.git
 
-cd challenge-card-game-becode
+cd wikipedia-scraperv2
 
-python main.py
+python leaders_scraper.py
