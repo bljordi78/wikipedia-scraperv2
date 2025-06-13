@@ -1,3 +1,4 @@
-pip install requirements
-pip install beautifulsoup4
-pip install json
+requests
+beautifulsoup4
+json
+pandas
