@@ -34,9 +34,7 @@ def get_first_paragraph(wikipedia_url):
             return ""
 
 
-def get_leaders():
-
-    root_url = 'https://country-leaders.onrender.com'
+def get_leaders(root_url):
 
     cookies = requests.get(f"{root_url}/cookie")
     countries = requests.get(f"{root_url}/countries", cookies=cookies.cookies).json()
@@ -61,9 +59,10 @@ def get_leaders():
 
     return leaders_per_country
 
-
-leaders_per_country = get_leaders()
+root_url = 'https://country-leaders.onrender.com'
+leaders_per_country = get_leaders(root_url)
 leaders_per_country.to_csv('leaders_data.csv', index = False)
+leaders_per_country.to_json('leaders_data.json', orient='index')
 
 
 
