@@ -20,6 +20,7 @@ This project follows the guidelines from [Wikipedia Scraper](https://github.com/
 
 ## Usage
 On Git Bash or other terminal:
+
 git clone https://github.com/Reigen-cs/challenge-card-game-becode.git
 
 cd challenge-card-game-becode
